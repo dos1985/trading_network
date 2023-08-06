@@ -8,3 +8,7 @@ class User(AbstractUser):
     username = models.CharField(max_length=255, unique=True)
     is_active_employee = models.BooleanField(default=True)
     pass
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
