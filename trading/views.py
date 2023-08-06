@@ -3,18 +3,19 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.permissions import IsAuthenticated
 from trading.models import Factory, RetailNetwork, IndividualEntrepreneur, Product
+from trading.permissions import IsActiveEmployee
 from trading.serializers import FactorySerializer, RetailNetworkSerializer, IndividualEntrepreneurSerializer, \
     ProductSerializer
 
 
 class FactoryCreateAPIView(CreateAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsActiveEmployee]
     queryset = Factory.objects.all()
     serializer_class = FactorySerializer
 
 
 class FactoryListAPIView(ListAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsActiveEmployee]
     queryset = Factory.objects.all()
     serializer_class = FactorySerializer
     filter_backends = [
@@ -22,10 +23,16 @@ class FactoryListAPIView(ListAPIView):
         filters.SearchFilter,
         DjangoFilterBackend,
     ]
-    filterset_fields = ['factory']
+    filterset_fields = ['name', 'country']
     ordering_fields = ["name", "created"]
     ordering = ["name"]
     search_fields = ["name"]
+
+    # def get_queryset(self):
+    #     user = self.request.user
+    #     return Factory.objects.filter(
+    #         board__participants__user=user
+    #     ).exclude(is_deleted=True).distinct()
 
 
 class FactoryRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
