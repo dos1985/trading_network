@@ -1,9 +1,6 @@
 from django.urls import path
+from trading.views import *
 
-from trading.views import FactoryCreateAPIView, FactoryListAPIView, FactoryRetrieveUpdateDestroyAPIView, \
-    RetailNetworkCreateAPIView, RetailNetworkListAPIView, RetailNetworkRetrieveUpdateDestroyAPIView, \
-    IndividualEntCreateAPIView, IndividualEntListAPIView, IndividualEnRetrieveUpdateDestroyAPIView, \
-    ProductCreateAPIView, ProductListAPIView, ProductUpdateDestroyAPIView
 
 urlpatterns = [
     path('factory/create', FactoryCreateAPIView.as_view(), name='factory-create'),
@@ -17,6 +14,9 @@ urlpatterns = [
     path('individual/<int:pk>', IndividualEnRetrieveUpdateDestroyAPIView.as_view(), name='individual-detail'),
     path('product/create', ProductCreateAPIView.as_view(), name='product-create'),
     path('product/list', ProductListAPIView.as_view(), name='product-list'),
-    path('product/<int:pk>', ProductUpdateDestroyAPIView.as_view(), name='product-detail'),
+    path('product/<int:pk>', ProductDetailAPIView.as_view(), name='product-detail-view'),
+    path('product/<int:pk>', ProductUpdateDestroyAPIView.as_view(), name='product-update-destroy'),
+    path('cart/create', CartItemListCreateAPIView.as_view(), name='cart-list-create'),
+    path('cart/<int:pk>', CartItemRetrieveUpdateDestroyAPIView.as_view(), name='cart-retrieve-update-destroy'),
 ]
 

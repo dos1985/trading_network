@@ -5,7 +5,6 @@ services:
        context: .
        dockerfile: Dockerfile
     restart: always
-#    image: dossovmarlen/todolist:${IMAGE_TAG}
     depends_on:
       - postgres
     environment:
@@ -24,7 +23,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-#    image: dossovmarlen/todolist:${IMAGE_TAG}
     depends_on:
       - postgres
     environment:

@@ -10,4 +10,5 @@ dj-database-url==2.0.0
 python-dotenv==0.21.0
 django-filter==23.2
 djangorestframework-filters
+Pillow==10.0.0
 
